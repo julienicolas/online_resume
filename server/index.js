@@ -20,7 +20,6 @@ var url = "mongodb://localhost:27017/mydb";
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
-  console.log("Database created!");
   db.close();
 });
 
@@ -30,7 +29,6 @@ mongoose.connect('mongodb://localhost/onlineCv', {useNewUrlParser: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function() {
-  // we're connected!
 });
 
 expressServer.use(morgan('combined'));

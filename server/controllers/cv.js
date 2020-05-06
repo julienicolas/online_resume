@@ -13,7 +13,6 @@ const upload = multer({
 
 exports.index = function (req, res, next) {
   Cv.find({}).sort({ date: 1 }).exec(function (err, cvs) {
-    console.log('GET CVS', cvs.length, cvs, err)
     if (err) {
       return next(err);
     } else {
@@ -23,12 +22,9 @@ exports.index = function (req, res, next) {
 }
 
 exports.create = function (req, res, next) {
-  console.log('CV CREATE', req.body);
   const title = req.body.title;
   const existingUser = req.user;
-  console.log('PICTURE IS 1', req.body.picture ? req.body.picture.file : '');
   const picture = req.body.picture ? fs.readFileSync(req.body.picture.file.path) : null;
-  console.log('PICTURE IS', picture);
   if (!existingUser)
     res.status(422).send({ error: "Vous avez été déconnecté" });
   const cv = new Cv({
@@ -58,33 +54,26 @@ exports.create = function (req, res, next) {
 exports.update = function (req, res, next) {
   const cvId = req.body._id
   const existingUser = req.user;
-  console.log('COUCOU CV UPDATE', req.body)
-  console.log('PICTURE IS 1', req.body.picture.file);
   if (!existingUser)
     res.status(422).send({ error: "Vous avez été déconnecté" });
   else {
-    console.log('ON VEUT TROUVER LE CV');
     Cv.findById(cvId, (err, cv) => {
       if (err)
         return next(err);
       else {
-        console.log('ON A TROUVE LE CV SUPER', cv)
         if (existingUser._id.toString() != cv._creator.toString())
           res.status(422).send({ error: "Vous n'êtes pas autorisé à modifier ce cv" });
         else {
-          console.log('COUCOU ICI LA', req.body.picture.file)
 
           // const picture = req.body.picture ? fs.readFileSync(req.body.picture.preview) : null;
           // req.body.picture = picture;
           upload(req, res, (multererr) => {
-            console.log('AFTER UPLOAD', multererr, req.body);
             if (multererr)
               return next(multererr);
             // Cv.updateOne(cv, req.body, (err, updatedCv) => {
             //   if (err)
             //     return next(err);
             //   else {
-            //     console.log('ONA UPDATE LE CV SUCCESSFULLY');
             //     existingUser.populate('cvs', function (err, user) {
             //       if (err)
             //         return next(err);
@@ -104,9 +93,7 @@ exports.update = function (req, res, next) {
 exports.delete = function (req, res, next) {
   const cvId = req.body._id;
   const existingUser = req.user;
-  console.log('CV DELETE CONTROLLER', req.body, req.body._creator)
   Cv.findById(cvId, (err, cv) => {
-    console.log('TEST', err, cv)
     debug('booting %o', cv._creator);
     if (err)
       return next(err);

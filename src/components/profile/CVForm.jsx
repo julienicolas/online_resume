@@ -14,7 +14,6 @@ const imageIsRequired = value => (!value ? "Required" : undefined);
 class CVForm extends Component {
 
   // handleSubmit = credentials => {
-  //   console.log('SUBMIT CV FORM', credentials);
   //   this.props.initialValues ? this.props.updateCV(credentials, this.props.history) : this.props.createCV(credentials, this.props.history);
   // };
 
@@ -28,16 +27,13 @@ class CVForm extends Component {
 
   handleFormSubmit = formProps => {
     const fd = new FormData();
-    console.log('HANDLE FORM SUBMIT', formProps, this.props);
     fd.append("picture", this.props.cvImage.file);
     fd.append("_id", formProps._id);
-    console.log('FINAL FORM DATA', fd);
     formProps['picture'] = this.props.cvImage.file
     this.props.initialValues ? this.props.updateCV(fd, this.props.history) : this.props.createCV(formProps, this.props.history);
   }
 
   handleOnDrop = (newImageFile, onChange, e) => {
-    console.log('YOUHOU IMAGE TO UPLOAD', newImageFile, onChange, e)
     const imageFile = {
       file: newImageFile[0],
       name: newImageFile[0].name,
@@ -67,7 +63,6 @@ class CVForm extends Component {
   }
 
   render() {
-    console.log('COUCOU RENDER CVFORM', this.props.initialValues)
     return (
       <div className="cv-form-page row">
         <div className="col-md-10 justify-content-md-center">
@@ -94,13 +89,6 @@ class CVForm extends Component {
 
     );
   }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('COMPONENT DID UPDATE', prevProps.currentFormStep, this.props.currentFormStep)
-    // if (prevProps.currentFormStep !== this.props.currentFormStep) {
-    //   this.refs.scrollerRef.scrollLeft = `${this.props.currentFormStep * 100}%`
-    // }
-  }
 }
 
 const cvForm = reduxForm({
@@ -111,7 +99,6 @@ const cvForm = reduxForm({
 
 
 const mapStateToProps = state => {
-  console.log('YOUHOU MAP STTAE TO PROPS', state)
   return {
     user: state.user.user,
     initialValues: state.profile.currentCV,

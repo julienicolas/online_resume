@@ -16,7 +16,6 @@ export function getLastCvs(){
     axios
       .get(`${config.BASE_URL}/cvs`, {})
       .then(response => {
-        console.log('GET LAST CVS OK', response.data);
         dispatch(displayCvs(response.data.cvs));
       })
       .catch(error => {

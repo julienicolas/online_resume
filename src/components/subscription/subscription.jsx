@@ -29,15 +29,7 @@ class Signup extends Component {
     );
   };
 
-   setTest = () => {
-     console.log(this.props, this.state);
-     const t = ["a", "b", "c"]
-     console.log(Math.random() * 4 + 1)
-    this.props.setError(t[Math.floor(Math.random() * 4 + 1)]);
-  }
-
   render() {
-    console.log('subscripiton render', this.state, this.props);
     const { handleSubmit, fields: {}, error } = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleSubmit)}>

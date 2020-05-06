@@ -14,7 +14,7 @@ const FileField = ({
 
     <Dropzone 
               className="upload-container"
-              onDrop={(file, t) => {console.log('DROPZONE ON DROP', file, t);handleOnDrop(file, onChange)}}
+              onDrop={(file, t) => {handleOnDrop(file, onChange)}}
     >
       {({getRootProps, getInputProps}) => (<Placeholder error={error} touched={touched} getInputProps={getInputProps} getRootProps={getRootProps}/>)}
     </Dropzone>
@@ -54,7 +54,6 @@ FileField.prototypes = {
 //       e.preventDefault();
 //       const files = [...e.target.files];
 //       input.onChange(files);
-//       console.log('ONCHANGE IS', files, files[0]);
 //       this.setState({img: URL.createObjectURL(files[0])})
 //     }
 //     return (

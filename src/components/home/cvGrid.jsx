@@ -12,7 +12,6 @@ export class CVGrid extends Component {
   }
 
   render() {
-    console.log('RENDER CVGRID', this.props.cvs);
     const cvs = this.props.lastCvs ? this.props.lastCvs.map((cv, index) => {
     return (<li key={`cv-${index}`}>{cv.title}</li>)
     }) : []

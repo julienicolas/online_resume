@@ -6,7 +6,6 @@ const axios = require('axios');
 const config = require('../../config');
 
 export function signinByToken(token){
-  console.log('action signinbytoken');
   return function(dispatch) {
     axios
       .get(`${config.BASE_URL}/me`, {
@@ -17,7 +16,6 @@ export function signinByToken(token){
         dispatch(setUser(response.data.user));
       })
       .catch(error => {
-        console.log('error is', error);
         dispatch(displayError(error.response ? error.response.data.message : 'unknown error'));
       });
   };
