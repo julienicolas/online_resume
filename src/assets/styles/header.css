@@ -1,0 +1,11 @@
+.header{
+  height: 63px;
+}
+
+.welcome{
+  color: white;
+  float: right;
+  margin: auto 0;
+  margin-left: auto;
+  margin-right: 20px;
+}

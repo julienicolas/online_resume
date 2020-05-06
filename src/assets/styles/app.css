@@ -7,6 +7,25 @@
   pointer-events: none;
 }
 
+.error{
+  color: tomato;
+  font-size: 0.7em;
+}
+
+.page{
+  position: relative;
+  height: 100vh;
+  padding-top: 20px;
+}
+
+.right{
+  float: right;
+}
+
+.footer{
+  color: #ffffff;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

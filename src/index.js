@@ -1,17 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import reducers from "./reducers";
+import thunk from "redux-thunk";
+import App from "./components/app";
+import { BrowserRouter } from "react-router-dom";
+//import { actionLogger } from "../src/middlewares/action-logger"
+require("./index.css");
+require("./assets/styles/header.css");
+require("./assets/styles/profile.css");
+
+const invariant = require('redux-immutable-state-invariant').default({ignore: ['profileForm.cvImage', 'form.cvcreate.values.picture', 'form.cvcreate.values.picture.file.lastModifiedDate']})
+//{ignore: ['profile.cvImage']}
+const createStoreWithMiddleware = applyMiddleware(thunk, invariant)(createStore);
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  <Provider
+    store={createStoreWithMiddleware(
+      reducers,
+      window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__(),
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    )}
+  >
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.querySelector("#root")
+);
